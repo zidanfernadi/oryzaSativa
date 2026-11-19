@@ -11,7 +11,6 @@ from sawah import storage
 from sawah.services import (PengelolaSawah, binary_search_id, insertion_sort,
                             jumlahkan, linear_search_kata, KUNCI_URUT)
 
-
 class TestPengolahanData(unittest.TestCase):
     """Menguji tambah data, validasi, panen, dan perhitungan."""
 
@@ -64,7 +63,6 @@ class TestPengolahanData(unittest.TestCase):
         self.assertEqual(jumlahkan(10, 20), 30)
         self.assertEqual(jumlahkan(10, 20, 30, 40), 100)
         self.assertEqual(jumlahkan(), 0)
-
 
 class TestSearchSortFile(unittest.TestCase):
     """Menguji searching, sorting, filter, dan penyimpanan file."""
@@ -124,7 +122,6 @@ class TestSearchSortFile(unittest.TestCase):
         daftar, rusak = storage.muat_data(nama_baru)
         self.assertEqual(daftar, [])
         self.assertTrue(os.path.exists(nama_baru))
-
 
 if __name__ == "__main__":
     unittest.main()
