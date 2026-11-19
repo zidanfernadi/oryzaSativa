@@ -19,6 +19,30 @@
     <div class="pesan error">{{ peringatan }}</div>
   {% endif %}
 
+  {# Pencarian dan filter (dikirim lewat URL, method GET) #}
+  <form class="cari" method="get" action="{{ url_for('beranda') }}">
+    <input type="text" name="cari" value="{{ kata }}" placeholder="Cari ID / petak / tanaman / musim">
+
+    <select name="musim">
+      <option value="">Semua musim</option>
+      {% for m in daftar_musim %}
+        <option value="{{ m }}" {% if m == musim %}selected{% endif %}>{{ m }}</option>
+      {% endfor %}
+    </select>
+
+    <select name="status">
+      <option value="">Semua status</option>
+      <option value="Tanam" {% if status == "Tanam" %}selected{% endif %}>Tanam</option>
+      <option value="Panen" {% if status == "Panen" %}selected{% endif %}>Panen</option>
+    </select>
+
+    {# Simpan urutan yang sedang dipakai supaya tidak hilang saat mencari #}
+    <input type="hidden" name="urut" value="{{ kolom_urut }}">
+    <input type="hidden" name="turun" value="{{ '1' if turun else '0' }}">
+
+    <button type="submit">Cari</button>
+    <a class="reset" href="{{ url_for('beranda') }}">Reset</a>
+  </form>
 
   <p class="total">
     Ditampilkan: <b>{{ daftar|length }}</b> catatan &nbsp;|&nbsp;
@@ -34,7 +58,7 @@
         <tr>
           {% for kode, judul in kolom_tabel %}
             <th>
-              {{ judul }}
+              <a href="{{ link_urut[kode] }}">{{ judul }}{% if kode == kolom_urut %}{{ ' ▼' if turun else ' ▲' }}{% endif %}</a>
             </th>
           {% endfor %}
         </tr>
@@ -61,6 +85,7 @@
       </tbody>
     </table>
   </div>
+  <p class="petunjuk">Klik judul kolom untuk mengurutkan. Klik lagi untuk membalik urutan.</p>
 
 </main>
 
