@@ -1,0 +1,45 @@
+/* style.css - gaya tampilan SawahKu */
+
+:root {
+  --hijau-tua: #2e6b34;
+  --hijau-muda: #d8f0d0;
+  --kuning-muda: #fff6cc;
+  --abu: #f4f6f2;
+  --garis: #cfd8cb;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--abu);
+  color: #222;
+}
+
+header {
+  background: var(--hijau-tua);
+  color: white;
+  padding: 16px 24px;
+}
+header h1 { margin: 0; }
+header p { margin: 4px 0 0; opacity: 0.9; }
+
+main { max-width: 1250px; margin: 0 auto; padding: 16px; }
+
+.total { font-size: 14px; background: white; padding: 10px 14px; border-radius: 6px; border: 1px solid var(--garis); }
+
+/* ----- Tabel ----- */
+.tabel-bungkus { overflow-x: auto; background: white; border: 1px solid var(--garis); border-radius: 6px; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { padding: 8px 10px; text-align: center; border-bottom: 1px solid var(--garis); white-space: nowrap; }
+th { background: #e6ede2; }
+td.kiri { text-align: left; }
+tr.status-panen { background: var(--hijau-muda); }
+tr.status-tanam { background: var(--kuning-muda); }
+.lencana { font-weight: bold; }
+.untung { color: #1b7a2b; font-weight: bold; }
+.rugi { color: #b3261e; font-weight: bold; }
+.kosong { padding: 20px; color: #666; }
+
+

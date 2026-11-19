@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SawahKu - Pencatatan Musim Tanam & Panen</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header>
+  <h1>SawahKu</h1>
+  <p>Pencatatan musim tanam dan panen per petak sawah</p>
+</header>
+
+<main>
+
+  {% if peringatan %}
+    <div class="pesan error">{{ peringatan }}</div>
+  {% endif %}
+
+
+  <p class="total">
+    Ditampilkan: <b>{{ daftar|length }}</b> catatan &nbsp;|&nbsp;
+    Total hasil: <b>{{ total.hasil_kg|angka }} kg</b> &nbsp;|&nbsp;
+    Biaya: <b>Rp {{ total.biaya|angka }}</b> &nbsp;|&nbsp;
+    Pendapatan: <b>Rp {{ total.pendapatan|angka }}</b> &nbsp;|&nbsp;
+    Laba: <b>Rp {{ total.laba|angka }}</b>
+  </p>
+
+  <div class="tabel-bungkus">
+    <table>
+      <thead>
+        <tr>
+          {% for kode, judul in kolom_tabel %}
+            <th>
+              {{ judul }}
+            </th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for c in daftar %}
+        <tr class="status-{{ c.status|lower }}">
+          <td>{{ c.id_catatan }}</td>
+          <td class="kiri">{{ c.petak }}</td>
+          <td>{{ c.luas|angka }}</td>
+          <td>{{ c.musim }}</td>
+          <td>{{ c.tanaman }}</td>
+          <td>{{ c.tgl_tanam }}</td>
+          <td>{{ c.tgl_panen }}</td>
+          <td><span class="lencana">{{ c.status }}</span></td>
+          <td>{{ c.hasil_kg|angka }}</td>
+          <td>{{ c.biaya|angka }}</td>
+          <td>{{ c.pendapatan|angka }}</td>
+          <td class="{{ 'untung' if c.hitung_laba() >= 0 else 'rugi' }}">{{ c.hitung_laba()|angka }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="13" class="kosong">Belum ada data yang cocok.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+</main>
+
+</body>
+</html>
